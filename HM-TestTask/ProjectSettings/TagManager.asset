@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Side
+  - Hero_Player
+  - Weapon
+  - Cursor
+  - Bullet
+  - EmemyBullet
+  - EnemyPoint
+  - AI
+  - Glass
+  - Bandera
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Bullet
+  - Water
+  - UI
+  - Side
+  - Player
+  - Weapons
+  - Light
+  - Button
+  - AI
+  - EmemyBullet
+  - wall
+  - glass
+  - Drop
+  - Door
+  - Object
+  - block
+  - Bandera
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Side
+    uniqueID: 3528427643
+    locked: 0
+  - name: DeadBody
+    uniqueID: 4260346399
+    locked: 0
+  - name: Object
+    uniqueID: 3660083189
+    locked: 0
+  - name: Weapon
+    uniqueID: 2597897389
+    locked: 0
+  - name: Bullet
+    uniqueID: 444771463
+    locked: 0
+  - name: Player
+    uniqueID: 1591064533
+    locked: 0
+  - name: Door
+    uniqueID: 2067154449
+    locked: 0
+  - name: Wall
+    uniqueID: 1886355497
+    locked: 0
+  - name: Button
+    uniqueID: 295253077
+    locked: 0
