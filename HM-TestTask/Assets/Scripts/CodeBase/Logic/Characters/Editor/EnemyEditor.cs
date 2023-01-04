@@ -21,7 +21,6 @@ namespace CodeBase.Logic.Characters.Editor
                     _enemy.TriggerByShoot();
                 }
             }
-
         }
     }
 }

@@ -9,9 +9,9 @@ namespace CodeBase.UI
         public float colorSpeed = 1f;
         public float maximumSaturation = 0.2f;
         public Image m_Sprite;
-        public int lvl;
+        public int lvl = 0;
 
-        void Update()
+        private void Update()
         {
             var color = m_Sprite.color;
 
@@ -28,7 +28,5 @@ namespace CodeBase.UI
                 }
             }
         }
-
-
     }
 }

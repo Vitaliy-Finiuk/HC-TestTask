@@ -13,7 +13,12 @@ namespace CodeBase.UI
 
         private void Update()
         {
-            Vector3 mousePosition = ScreenMouse.instance.GetMousePos();
+            if (_hero == null)
+            {
+                return;
+            }
+            
+            Vector3 mousePosition = ScreenMouse.Instance.GetMousePos();
         
             var position = _hero.transform.position;
         

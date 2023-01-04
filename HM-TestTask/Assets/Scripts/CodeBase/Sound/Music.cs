@@ -7,7 +7,8 @@ namespace CodeBase.Sound
         public AudioSource audioSource;
         public AudioClip track1;
         public AudioClip track2;
-        void Start()
+
+        private void Start()
         {
             audioSource = GetComponent<AudioSource>();
             audioSource.PlayOneShot(track1);

@@ -13,7 +13,6 @@ TagManager:
   - EnemyPoint
   - AI
   - Glass
-  - Bandera
   layers:
   - Default
   - TransparentFX
@@ -29,12 +28,12 @@ TagManager:
   - AI
   - EmemyBullet
   - wall
-  - glass
+  - 
   - Drop
   - Door
   - Object
   - block
-  - Bandera
+  - 
   - 
   - 
   - 

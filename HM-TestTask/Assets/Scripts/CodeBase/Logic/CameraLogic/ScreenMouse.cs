@@ -4,19 +4,19 @@ namespace CodeBase.Logic.CameraLogic
 {
     public class ScreenMouse : MonoBehaviour
     {
-
+        public static ScreenMouse Instance;
+        
         private Vector3 mousePos;
-        public static ScreenMouse instance;
         private Camera mainCamera;
 
         private void Awake()
         {
-            if (instance != null)
+            if (Instance != null)
             {
-                Destroy(instance);
+                Destroy(Instance);
             }
 
-            instance = this;
+            Instance = this;
         }
         private void Start()
         {
@@ -24,7 +24,8 @@ namespace CodeBase.Logic.CameraLogic
             if (mainCamera == null)
                 Debug.LogError("No Main Camera");
         }
-        void Update()
+
+        private void Update()
         {
             Vector3 input = Input.mousePosition;
             mousePos = mainCamera.ScreenToWorldPoint(input);

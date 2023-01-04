@@ -10,7 +10,7 @@ namespace CodeBase.Logic.CameraLogic
 
         private void Update()
         {
-            Vector3 mousePosition = ScreenMouse.instance.GetMousePos();
+            Vector3 mousePosition = ScreenMouse.Instance.GetMousePos();
         
             PositionX = mousePosition.x;
             PositionY = mousePosition.y;

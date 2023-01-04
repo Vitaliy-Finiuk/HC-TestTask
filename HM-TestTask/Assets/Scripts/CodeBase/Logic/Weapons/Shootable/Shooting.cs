@@ -1,13 +1,19 @@
+using System;
+using CodeBase.Infrastucture;
 using CodeBase.Logic.Characters;
 using CodeBase.Logic.Characters.Hero;
 using CodeBase.Logic.Characters.NoiseController;
+using CodeBase.Services.Input;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 namespace CodeBase.Logic.Weapons.Shootable
 {
     public class Shooting : MonoBehaviour
     {
+        private IInputService IInputService;
+        
         [Header("Projectile")]
         public Transform firePoint;
         public GameObject projectilePrefab;
@@ -16,8 +22,7 @@ namespace CodeBase.Logic.Weapons.Shootable
         public WeaponManager WM;
         public HeroController HR;
 
-        [Header("Rates")]
-        public float fireRate = 600;
+        [Header("Rates")] [SerializeField] private float _fireRate = 600f;
         public bool semiMode = false;
 
         [Header("Ammo")]
@@ -44,62 +49,53 @@ namespace CodeBase.Logic.Weapons.Shootable
 
         private float reloadTimer;
 
-        private bool shootInput;
-        private bool reloadInput;
-        private bool IsReloading;
+        private bool _shootInput;
+        private bool _reloadInput;
+        private bool _IsReloading;
         private bool HasAmmo => ammo > 0;
-
-
-
+        
         public bool SetShootInput
         {
-            get => shootInput;
-            set => shootInput = value;
+            get => _shootInput;
+            set => _shootInput = value;
         }
         public bool SetReloadInput
         {
-            get => reloadInput;
-            set => reloadInput = value;
+            get => _reloadInput;
+            set => _reloadInput = value;
         }
 
         private Unit owner;
 
         private void Awake()
         {
-            if (WM)
-            {
-                owner = WM.transform.GetComponent<Unit>();
-            }
-            else
-            {
-                owner = transform.GetComponent<Unit>();
+            IInputService = Game.InputService;
 
-            }
+            if (WM)
+                owner = WM.transform.GetComponent<Unit>();
+            else
+                owner = transform.GetComponent<Unit>();
 
         }
 
-
-        void FixedUpdate()
+        private void Update()
         {
-            fireRatePerSeconds = 1 / (fireRate / 60);
+            if (!useExternalInput) 
+                _shootInput = IInputService.IsAttackButtonDown();
+        }
 
-            if (!useExternalInput)
-            {
-                shootInput = Input.GetButton("Fire1");
-                //reloadInput = Input.GetKeyDown(KeyCode.R);
-            }
+        private void FixedUpdate()
+        {
+            fireRatePerSeconds = 1 / (_fireRate / 60);
 
-            if (shootInput && HR.trueShoot == true)
-            {
+
+            if (_shootInput && HR.trueShoot == true) 
                 Shoot();
-            }
 
-            if (useAutoReload && !HasAmmo)
-            {      
+            if (useAutoReload && !HasAmmo) 
                 Reload();
-            }
 
-            if (IsReloading)
+            if (_IsReloading)
             {
                 reloadTimer += Time.deltaTime;
                 Debug.Log(reloadTimer);
@@ -111,19 +107,17 @@ namespace CodeBase.Logic.Weapons.Shootable
                         nowAmmo = nowAmmo - (maxAmmo - ammo);
                         ammo = maxAmmo;
                         reloadTimer = 0;
-                        IsReloading = false;
+                        _IsReloading = false;
                     }
-                    else if (nowAmmo <= 0)
-                    {
+                    else if (nowAmmo <= 0) 
                         ammo = ammo;
-                    }
                 }
             }
         }
 
         public void Shoot()
         {
-            if (IsReloading) return;
+            if (_IsReloading) return;
             if (!HasAmmo) return;
 
 
@@ -150,6 +144,7 @@ namespace CodeBase.Logic.Weapons.Shootable
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             rb.AddForce(firePoint.up * projectileForce, ForceMode2D.Impulse);
         }
+        
         private void ShootMultiple()
         {
             for (int i = 0; i < bulletPerShot; i++)
@@ -172,7 +167,7 @@ namespace CodeBase.Logic.Weapons.Shootable
         {
             if (nowAmmo > 0)
             {
-                IsReloading = true;
+                _IsReloading = true;
             }
         }
 

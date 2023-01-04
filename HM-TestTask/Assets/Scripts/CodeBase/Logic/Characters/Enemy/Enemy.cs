@@ -47,8 +47,6 @@ namespace CodeBase.Logic.Characters.Enemy
         [Header("WeaponDrop")]
         public GameObject weapon;
 
-        //  public HeroController hero;
-
         public bool CanSeePlayer { get => canSeePlayer; }
         private bool canSeePlayer;
 
@@ -89,12 +87,7 @@ namespace CodeBase.Logic.Characters.Enemy
             }
             base.Awake();
             onDeath.AddListener(Death);
-            //
-            //
-            //
-            //
-            //
-            //
+
             if(!meele)
             {
                 shooting = GetComponent<Shooting>();
@@ -118,24 +111,18 @@ namespace CodeBase.Logic.Characters.Enemy
 
                 if (!target) Debug.LogError("Dont forget about target");
             }
-            //hero = target.GetComponent<HeroController>();
-            //hero.hears.AddListener(TriggerByShoot);
+
             onTrigger.AddListener(TriggerByShoot);
         }
-
+        
         private void FixedUpdate()
-        {        
-            //tapki.gameObject.SetActive(true);
+        {
             FindingFOV();
             Targetering(Time.fixedDeltaTime);
         }
 
-        public void TriggerByShoot()
-        {
+        public void TriggerByShoot() => 
             appearTimer = timeToRunWhenHearShoot;
-            //Debug.Log("icos");
-            //agent.SetDestination(target.transform.position);
-        }
 
         public void Death(Unit unit)
         {
@@ -184,8 +171,6 @@ namespace CodeBase.Logic.Characters.Enemy
                     animator.SetBool("weapon", false);
                 }
             }
-            //  Debug.Log(points[destenationPoint]);
-            // Debug.Log(agent.destination);
         }
         public void FindingFOV()
         {
@@ -201,9 +186,7 @@ namespace CodeBase.Logic.Characters.Enemy
                     float distanceToTarget = Vector2.Distance(transform.position, target.position);
 
                     if (Physics2D.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionlayer))
-                    {
                         canSeePlayer = false;
-                    }
                     else
                     {
                         canSeePlayer = true;
@@ -217,14 +200,10 @@ namespace CodeBase.Logic.Characters.Enemy
                     }
                 }
                 else
-                {
                     canSeePlayer = false;
-                }
             }
             else
-            {
                 canSeePlayer = false;
-            }
         }
 
         public void Targetering(float dt)
@@ -234,12 +213,7 @@ namespace CodeBase.Logic.Characters.Enemy
             {
                 animator.enabled = true;
                 agent.enabled = true;
-                //
-                //
-                //
-                //
-                //
-                //
+
                 if (canSeePlayer && !meele)
                 {
                     shooting.Shoot();
@@ -257,9 +231,7 @@ namespace CodeBase.Logic.Characters.Enemy
 
                 }
                 else
-                {
                     agent.stoppingDistance = ifCantSeeDistance;
-                }
 
                 if (appearTimer > 0)
                 {
@@ -282,9 +254,7 @@ namespace CodeBase.Logic.Characters.Enemy
                     agent.SetDestination(target.transform.position);
                 }
                 else
-                {
                     Patrol();
-                }
             }
             else
             {
@@ -294,10 +264,8 @@ namespace CodeBase.Logic.Characters.Enemy
                     bush = false;
                     agent.speed = standartSpeed;
 
-                    if(complex)
-                    {
+                    if(complex) 
                         spriteR.sprite = body;
-                    }
                 }
             }
         }

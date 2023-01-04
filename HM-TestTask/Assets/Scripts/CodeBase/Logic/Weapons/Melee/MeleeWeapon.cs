@@ -1,5 +1,8 @@
+using System;
+using CodeBase.Infrastucture;
 using CodeBase.Logic.Characters;
 using CodeBase.Logic.Characters.Enemy;
+using CodeBase.Services.Input;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,6 +10,8 @@ namespace CodeBase.Logic.Weapons.Melee
 {
     public class MeleeWeapon : MonoBehaviour
     {
+        private IInputService IInputService;
+        
         public LayerMask attackLayer;
         [Header("Params")]
         public int damage = 50;
@@ -27,16 +32,17 @@ namespace CodeBase.Logic.Weapons.Melee
         public bool bushing = false;
         public float timeT1 = 0;
 
-
+        private void Awake()
+        {
+            IInputService = Game.InputService;
+        }
 
         private void FixedUpdate()
         {
             fireRatePerSeconds = 1 / (fireRate / 60);
 
-            if (!useExternalInput1)
-            {
-                shootInput = Input.GetButton("Fire1");
-            }
+            if (!useExternalInput1) 
+                shootInput = IInputService.IsAttackButtonDown();
 
             if(bushing)
             {
@@ -90,12 +96,8 @@ namespace CodeBase.Logic.Weapons.Melee
                         Unit unit = hit.transform.GetComponent<Unit>();
                         Enemy enemy = hit.transform.GetComponent<Enemy>();
 
-                        if (unit)
-                        {
+                        if (unit) 
                             unit.TakeDamage(damage);
-                        }
-
-                        //////////////////////////////////////////////////
 
                         if(unit)
                         {
@@ -121,7 +123,6 @@ namespace CodeBase.Logic.Weapons.Melee
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.white;
-            //UnityEditor.Handles.DrawWireDisc(transform.position, transform.up, rangeAttack);
 
             Vector3 angle01 = Utils.Utils.DirectionFromAngle(-transform.eulerAngles.z + 90, -angle / 2);
             Vector3 angle02 = Utils.Utils.DirectionFromAngle(-transform.eulerAngles.z + 90, angle / 2);
