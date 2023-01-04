@@ -1,39 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
+using CodeBase.Logic.Weapons.Melee;
+using CodeBase.Logic.Weapons.Shootable;
 using UnityEngine;
 
-public class SoundFireControler : MonoBehaviour
+namespace CodeBase.Sound
 {
-    public AudioClip reloadClip;
-    public AudioClip fireClip;
-    private ColdWeapon coldWeapon;
-    private Shooting weaponShoot;
-    private AudioSource audioSource;
+    public class SoundFireControler : MonoBehaviour
+    {
+        public AudioClip reloadClip;
+        public AudioClip fireClip;
+        private MeleeWeapon meleeWeapon;
+        private Shooting weaponShoot;
+        private AudioSource audioSource;
         
-    void Start()
-    {
-        coldWeapon = GetComponent<ColdWeapon>();
-        weaponShoot = GetComponent<Shooting>(); 
-        audioSource = GetComponent<AudioSource>();
-        if (coldWeapon)
+        void Start()
         {
-            coldWeapon.OnAttack.AddListener(OnAttack);
-        }  
-        if (weaponShoot)
-        {
-            weaponShoot.onShooting.AddListener(OnAttack);
-            weaponShoot.onReloading.AddListener(OnReloading);
+            meleeWeapon = GetComponent<MeleeWeapon>();
+            weaponShoot = GetComponent<Shooting>(); 
+            audioSource = GetComponent<AudioSource>();
+            if (meleeWeapon)
+            {
+                meleeWeapon.OnAttack.AddListener(OnAttack);
+            }  
+            if (weaponShoot)
+            {
+                weaponShoot.onShooting.AddListener(OnAttack);
+                weaponShoot.onReloading.AddListener(OnReloading);
+            }
         }
-    }
 
-    public void OnReloading()
-    {
-        if (!reloadClip) return;
-        audioSource.PlayOneShot(reloadClip);
-    }
-    public void OnAttack()
-    {
-        if (!fireClip) return;
-        audioSource.PlayOneShot(fireClip);
+        public void OnReloading()
+        {
+            if (!reloadClip) return;
+            audioSource.PlayOneShot(reloadClip);
+        }
+        public void OnAttack()
+        {
+            if (!fireClip) return;
+            audioSource.PlayOneShot(fireClip);
+        }
     }
 }

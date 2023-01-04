@@ -1,41 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Unit : MonoBehaviour
+namespace CodeBase.Logic.Characters
 {
-    public int hp;
-    public int maxHP = 100;
-
-    [HideInInspector]
-    public UnityEvent<Unit> onDeath;
-
-    [HideInInspector]
-    public UnityEvent onTrigger;
-
-    [HideInInspector]
-    public bool IsEnemy;
-
-
-    public virtual void Awake()
+    public class Unit : MonoBehaviour
     {
-        hp = maxHP;
-    }
+        public int hp;
+        public int maxHP = 100;
 
-    public void Trigger()
-    {
-        onTrigger?.Invoke();
-    }
+        [HideInInspector]
+        public UnityEvent<Unit> onDeath;
 
-    public void TakeDamage(int amount)
-    {
-        hp -= Mathf.Abs(amount);
-        hp = Mathf.Clamp(hp, 0, maxHP);
+        [HideInInspector]
+        public UnityEvent onTrigger;
 
-        if (hp <= 0)
+        [HideInInspector]
+        public bool IsEnemy;
+
+
+        public virtual void Awake()
         {
-            onDeath?.Invoke(this);
+            hp = maxHP;
+        }
+
+        public void Trigger()
+        {
+            onTrigger?.Invoke();
+        }
+
+        public void TakeDamage(int amount)
+        {
+            hp -= Mathf.Abs(amount);
+            hp = Mathf.Clamp(hp, 0, maxHP);
+
+            if (hp <= 0)
+            {
+                onDeath?.Invoke(this);
+            }
         }
     }
 }

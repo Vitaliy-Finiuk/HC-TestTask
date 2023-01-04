@@ -1,23 +1,26 @@
 using UnityEngine;
 
-public static class Utils
+namespace CodeBase.Utils
 {
-    public static int LayerMaskToLayer(LayerMask layerMask)
+    public static class Utils
     {
-        int layerNumber = 0;
-        int layer = layerMask.value;
-        
-        while (layer > 0)
+        public static int LayerMaskToLayer(LayerMask layerMask)
         {
-            layer = layer >> 1;
-            layerNumber++;
+            int layerNumber = 0;
+            int layer = layerMask.value;
+        
+            while (layer > 0)
+            {
+                layer = layer >> 1;
+                layerNumber++;
+            }
+            return layerNumber - 1;
         }
-        return layerNumber - 1;
-    }
-    public static Vector2 DirectionFromAngle(float eulerY, float angleInDegrees)
-    {
-        angleInDegrees += eulerY;
+        public static Vector2 DirectionFromAngle(float eulerY, float angleInDegrees)
+        {
+            angleInDegrees += eulerY;
 
-        return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+            return new Vector2(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+        }
     }
 }

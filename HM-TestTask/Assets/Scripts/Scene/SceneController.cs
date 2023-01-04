@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneController : MonoBehaviour
+namespace Scene
 {
-    public static SceneController instance;
-
-
-    public void LoadScene(int scene)
+    public class SceneController : MonoBehaviour
     {
-        SceneManager.LoadScene(scene);
-    }
+        public static SceneController instance;
 
-    private void Awake()
-    {
-        instance = this;
-    }
 
+        public void LoadScene(int scene)
+        {
+            SceneManager.LoadScene(scene);
+        }
+
+        private void Awake()
+        {
+            instance = this;
+        }
+
+    }
 }
