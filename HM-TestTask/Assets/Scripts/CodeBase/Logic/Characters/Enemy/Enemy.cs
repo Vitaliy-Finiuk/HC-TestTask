@@ -1,14 +1,24 @@
+using System;
 using CodeBase.Logic.Characters.Hero;
 using CodeBase.Logic.Characters.NoiseController;
 using CodeBase.Logic.Weapons.Melee;
 using CodeBase.Logic.Weapons.Shootable;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace CodeBase.Logic.Characters.Enemy
 {
+    public enum EnemyStates
+    {
+        Patrol,
+        Wander,
+    }
+    
     public class Enemy : Unit
     {
+        private EnemyStates actualState;
+        
         [Header("Patrol")]
         public Transform[] points;
         private int destenationPoint = 0;
@@ -20,12 +30,27 @@ namespace CodeBase.Logic.Characters.Enemy
         public string tagOfTarget = "Hero_Player";
         public float timeToDisappear = 2f;
         public float timeToRunWhenHearShoot = 3f;
+        [SerializeField] private bool FindTargetAfterSpawn;
 
         [Header("NavMesh")]
         public float ifCantSeeDistance = 2;
         public float ifCanSeeDistance = 6;
         public float standartSpeed = 14;
+        public float randomWaypointAccuracy = 1.0f;
 
+        [Header("Waypoints Settings")]
+        public PrWaypointsRoute waypointRoute;
+        private int actualWaypoint = 0;
+        [HideInInspector]
+        public Transform[] waypoints;
+        public bool waypointPingPong = false;
+        private bool inverseDirection = false; 
+        private bool waiting = false;
+        private float timeToWait = 3.0f;
+        private float actualTimeToWait = 0.0f;
+        private float waitTimer = 0.0f;
+        public Vector3 finalGoal = Vector3.zero;
+        
         [Header("Visibility")]
         public float radius = 5f;
         [Range(1, 360)] public float angle = 45f;
@@ -68,6 +93,7 @@ namespace CodeBase.Logic.Characters.Enemy
 
         public AudioClip bush_clip;
         private AudioSource audioSource;
+        
     
         public override void Awake()
         {    
@@ -112,9 +138,27 @@ namespace CodeBase.Logic.Characters.Enemy
                 if (!target) Debug.LogError("Dont forget about target");
             }
 
+            if (!target && FindTargetAfterSpawn)
+            {
+                target = GameObject.FindGameObjectWithTag(tagOfTarget);
+                heroTarget = target.GetComponent<HeroController>();
+
+                if (!target) Debug.LogError("Dont forget about target");
+            }
+
             onTrigger.AddListener(TriggerByShoot);
         }
-        
+
+        private void Start()
+        {
+            waypointRoute = FindObjectOfType<PrWaypointsRoute>();
+            
+            if (waypoints.Length > 0)
+            {
+                finalGoal = waypoints[0].transform.position;
+            }
+        }
+
         private void FixedUpdate()
         {
             FindingFOV();
@@ -140,6 +184,40 @@ namespace CodeBase.Logic.Characters.Enemy
             }
             Destroy(gameObject);
         }
+        
+        public void SetWaypoints()
+        {
+            if (waypointRoute)
+            {
+                waypoints = new Transform[waypointRoute.waypoints.Length];
+                timeToWait = waypointRoute.timeToWait;
+
+                for (int i = 0; i < (waypoints.Length); i++)
+                {
+                    waypoints[i] = waypointRoute.waypoints[i];
+
+                }
+            }
+            else
+            {
+                if (actualState == EnemyStates.Patrol)
+                {
+                    actualState = EnemyStates.Wander;
+                }
+            }
+        }
+        
+        
+        void SetRandomPosVar(Vector3 goal)
+        {
+            finalGoal = goal + new Vector3(Random.Range(-randomWaypointAccuracy, randomWaypointAccuracy), 0, Random.Range(-randomWaypointAccuracy, randomWaypointAccuracy));
+        }
+
+        void SetTimeToWait()
+        {
+            actualTimeToWait = Random.Range(timeToWait * 0.75f, -timeToWait * 0.75f) + timeToWait;
+        }
+        
 
         public void Patrol()
         {
@@ -148,7 +226,8 @@ namespace CodeBase.Logic.Characters.Enemy
        
             if ((points.Length == 0) || (canSeePlayer == true) )
             {
-                // Debug.Log("where the points?");         
+                // Debug.Log("where the points?"); 
+                points = waypointRoute.waypoints;
                 return;
             }      
         
@@ -206,6 +285,117 @@ namespace CodeBase.Logic.Characters.Enemy
                 canSeePlayer = false;
         }
 
+        private void ApplyState()
+        {
+            switch (actualState)
+            {
+                case EnemyStates.Patrol:
+
+                    if (waypoints.Length > 0)
+                    {
+                        if (agent.remainingDistance >= 1.0f && !waiting)
+                        {
+                        }
+                        else if (!waiting && waitTimer < actualTimeToWait)
+                        {
+                            waiting = true;
+                        }
+
+                        if (waiting)
+                        {
+                            if (waitTimer < actualTimeToWait)
+                                waitTimer += Time.deltaTime;
+                            else
+                                ChangeWaytpoint();
+                        }
+                    }
+
+                    //Debug.Log("patrolling");
+                    break;
+            }
+        }
+
+        void ChangeWaytpoint()
+            {
+                waiting = false;
+                if (!waypointPingPong) //Unidirectional Waypoint
+                {
+                    if (actualWaypoint < waypoints.Length - 1)
+                        actualWaypoint = actualWaypoint + 1;
+                    else
+                        actualWaypoint = 0;
+                }
+                else if (waypointPingPong)//Ping pong waypoints
+                {
+                    if (!inverseDirection)
+                    {
+                        if (actualWaypoint < waypoints.Length - 1)
+                            actualWaypoint = actualWaypoint + 1;
+                        else
+                        {
+                            inverseDirection = true;
+                            actualWaypoint = actualWaypoint - 1;
+                        }
+                    }
+                    else
+                    {
+                        if (actualWaypoint > 0)
+                            actualWaypoint = actualWaypoint - 1;
+                        else
+                        {
+                            inverseDirection = false;
+                            actualWaypoint = 1;
+                        }
+                    }
+                }
+                waitTimer = 0.0f;
+                SetTimeToWait();
+                SetWaypoint(waypoints[actualWaypoint].transform.position);
+
+            }
+
+            public void SetWaypoint(Vector3 Pos)
+            {
+                SetRandomPosVar(Pos);
+                agent.SetDestination(finalGoal);
+            }
+            
+            public void GetCLoserWaypoint()
+            {
+        
+                int selected = 0;
+                float selDist = 999f;
+                float dist = 0.0f;
+                bool changeWayp = false;
+                if (waypoints.Length > 0)
+                {
+                    for (int i = 0; i < waypoints.Length; i++)
+                    {
+                        dist = agent.remainingDistance;
+
+                        if (dist <= selDist)
+                        {
+                            selDist = dist;
+
+                            actualWaypoint = selected;
+
+                            changeWayp = true;
+                        }
+                        selected += 1;
+                    }
+                    if (changeWayp)
+                    {
+                        ChangeWaytpoint();
+                    }
+                    else
+                    {
+                        SetWaypoint(waypoints[0].position);
+
+                    }
+                }
+            }
+
+        
         public void Targetering(float dt)
         {
             appearTimer = Mathf.Max(appearTimer - dt, 0);

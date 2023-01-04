@@ -352,9 +352,15 @@ MonoBehaviour:
   tagOfTarget: Hero_Player
   timeToDisappear: 3
   timeToRunWhenHearShoot: 3
+  FindTargetAfterSpawn: 0
   ifCantSeeDistance: 2
   ifCanSeeDistance: 13
   standartSpeed: 14
+  randomWaypointAccuracy: 1
+  waypointRoute: {fileID: 0}
+  waypoints: []
+  waypointPingPong: 0
+  finalGoal: {x: 0, y: 0, z: 0}
   radius: 30
   angle: 123
   targetLayer:
@@ -398,7 +404,7 @@ MonoBehaviour:
       m_Calls: []
   WM: {fileID: 0}
   HR: {fileID: 0}
-  fireRate: 600
+  _fireRate: 600
   semiMode: 0
   UseAmmoSystem: 1
   ammo: 30

@@ -94,7 +94,7 @@ namespace CodeBase.Logic.Weapons.Melee
                     if (hit)
                     {
                         Unit unit = hit.transform.GetComponent<Unit>();
-                        Enemy enemy = hit.transform.GetComponent<Enemy>();
+                        Enemy enemySetup = hit.transform.GetComponent<Enemy>();
 
                         if (unit) 
                             unit.TakeDamage(damage);
@@ -104,7 +104,7 @@ namespace CodeBase.Logic.Weapons.Melee
                             if(damage == 0 && !bushing)
                             {
                                 Debug.Log("Bush without weapon");
-                                enemy.Bush();
+                                enemySetup.Bush();
                                 bushing = true;
                             }
                             if(damage == 0 && bushing)

@@ -187,9 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e0aa5f241f3c6438573afc3ab31c66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bushMask:
+  _bushMask:
     serializedVersion: 2
-    m_Bits: 256
-  floorMask:
+    m_Bits: 8
+  _floorMask:
     serializedVersion: 2
-    m_Bits: 32768
+    m_Bits: 15
