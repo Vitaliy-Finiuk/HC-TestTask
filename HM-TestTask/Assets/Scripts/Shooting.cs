@@ -1,13 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class Shooting : MonoBehaviour
 {
-
-
     [Header("Projectile")]
     public Transform firePoint;
     public GameObject projectilePrefab;
@@ -177,20 +172,18 @@ public class Shooting : MonoBehaviour
     }
 
 
-#if UNITY_EDITOR //��������� �������� � Dizmos
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         if (!useSpraying) return;
         Gizmos.color = Color.white;
-
         Vector3 angle01 = Utils.DirectionFromAngle(-transform.eulerAngles.z + 90, -angle);
         Vector3 angle02 = Utils.DirectionFromAngle(-transform.eulerAngles.z + 90, angle);
+        
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, transform.position + angle01 * 5f);
         Gizmos.DrawLine(transform.position, transform.position + angle02 * 5f);
     }
-
-
 #endif
 
 }

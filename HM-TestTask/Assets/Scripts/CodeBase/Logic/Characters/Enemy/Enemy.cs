@@ -12,8 +12,8 @@ public class Enemy : Unit
     [Header("Targeting")]
     public GameObject target;
     public string tagOfTarget = "Hero_Player";
-    public float timeToDisappear = 2f; //Через скільки секунд втрачає з виду
-    public float timeToRunWhenHearShoot = 3f; //Скільки біжить часу на вистріл з зброї
+    public float timeToDisappear = 2f;
+    public float timeToRunWhenHearShoot = 3f;
 
     [Header("NavMesh")]
     public float ifCantSeeDistance = 2;
@@ -315,7 +315,7 @@ public class Enemy : Unit
 
 
 
-#if UNITY_EDITOR //Малювання рейкаста в Dizmos
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.white;

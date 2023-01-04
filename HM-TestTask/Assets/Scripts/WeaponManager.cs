@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -23,7 +21,7 @@ public class WeaponManager : MonoBehaviour
 
     public int currentSelectedWeaponID;
 
-    void Start()
+    private void Start()
     {
         currentSelectedWeaponID = PlayerPrefs.GetInt("weaponLOAD");
         if(currentSelectedWeaponID != -1 && !weaponSlots[currentSelectedWeaponID].cold)

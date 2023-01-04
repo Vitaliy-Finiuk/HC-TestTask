@@ -1,20 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CursorObject : MonoBehaviour
 {
-    public float posx;
-    public float posy;
-    public float posz;
-    void Update()
+    private float PositionX;
+    private float PositionY;
+    private float PositionZ;
+
+    private void Update()
     {
-
         Vector3 mousePosition = ScreenMouse.instance.GetMousePos();
-        posx = mousePosition.x;
-        posy = mousePosition.y;
-        posz = 1;
+        
+        PositionX = mousePosition.x;
+        PositionY = mousePosition.y;
+        PositionZ = 1;
 
-        transform.position = new Vector3(posx, posy, posz);
+        transform.position = new Vector3(PositionX, PositionY, PositionZ);
     }
 }

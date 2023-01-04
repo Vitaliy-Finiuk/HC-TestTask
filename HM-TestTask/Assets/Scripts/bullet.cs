@@ -1,21 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class bullet : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     public GameObject glassSplash;
     public GameObject hitBlood;
     public GameObject hitEffect;
     public int damage = 50;
+    
     //public AudioClip fireClip;
     //private AudioSource audioSource;
-    void Start()
+    private void Start()
     {
         //audioSource = GetComponent<AudioSource>();
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
        
         Vector2 dir = GetComponent<Rigidbody2D>().velocity.normalized;
@@ -36,7 +35,7 @@ public class bullet : MonoBehaviour
             GameObject effect = Instantiate(glassSplash, transform.position, Quaternion.Euler(0, 0, angle));
         }
         
-            Unit unit = collision.gameObject.GetComponent<Unit>();
+        Unit unit = collision.gameObject.GetComponent<Unit>();
 
         if (unit)
         {
@@ -44,6 +43,4 @@ public class bullet : MonoBehaviour
         }
         Destroy(gameObject);
     }
-
- 
 }

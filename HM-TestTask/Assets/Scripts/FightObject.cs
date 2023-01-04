@@ -1,20 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FightObject : MonoBehaviour
 {
-    public GameObject hands;
-    public WeaponManager WP;
-    void Update()
+    [SerializeField] private GameObject _hands;
+    [SerializeField] private WeaponManager _weaponManager;
+
+    private void Update() => 
+        SetCurrentObject();
+
+    private void SetCurrentObject()
     {
-        if(WP.currentSelectedWeaponID == -1)
-        {
-            hands.SetActive(true);
-        }
+        if (_weaponManager.currentSelectedWeaponID == -1)
+            _hands.SetActive(true);
         else
-        {
-            hands.SetActive(false);
-        }
+            _hands.SetActive(false);
     }
 }

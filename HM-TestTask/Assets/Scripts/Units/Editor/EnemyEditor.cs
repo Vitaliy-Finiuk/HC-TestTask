@@ -5,17 +5,18 @@ using UnityEngine;
 [CustomEditor(typeof(Enemy))]
 public class EnemyEditor : Editor
 {
-    Enemy enemy;
+    private const string TriggerByShoot = "Trigger By Shoot";
+    private Enemy _enemy;
     public override void OnInspectorGUI()
     {
-        enemy = (Enemy)target;
+        _enemy = (Enemy)target;
 
         DrawDefaultInspector();
         GUILayout.Space(10);
 
         if (Application.isPlaying) {
-            if (GUILayout.Button("Trigger By Shoot")) {
-                enemy.TriggerByShoot();
+            if (GUILayout.Button(TriggerByShoot)) {
+                _enemy.TriggerByShoot();
             }
         }
 

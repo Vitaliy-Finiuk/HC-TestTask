@@ -1,26 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class door : MonoBehaviour
+public class Door : MonoBehaviour
 {
-    public AudioClip sound;
-    public AudioSource audioSource;
-    public float timer = 0;
+    private const string HeroPlayer = "Hero_Player";
 
-    void Update()
-    {
-        timer += Time.deltaTime;
-    }
+    [SerializeField] private AudioClip _sound;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private float _timer = 0;
 
-    void OnCollisionEnter2D(Collision2D other)
+    private void Update() => 
+        _timer += Time.deltaTime;
+
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.CompareTag("Hero_Player"))
+        if(other.gameObject.CompareTag(HeroPlayer))
         {
-            if(timer > 1.5)
+            if(_timer > 1.5)
             {
-                audioSource.PlayOneShot(sound);
-                timer = 0;
+                _audioSource.PlayOneShot(_sound);
+                _timer = 0;
             }
         }
     }
