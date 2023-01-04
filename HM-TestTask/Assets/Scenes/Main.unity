@@ -110588,7 +110588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5854659583174246459, guid: 48e517e79ca8ce34eacb9c7bf30218bf, type: 3}
       propertyPath: _fireRate
-      value: 900
+      value: 1200
       objectReference: {fileID: 0}
     - target: {fileID: 5854659583174246459, guid: 48e517e79ca8ce34eacb9c7bf30218bf, type: 3}
       propertyPath: onShooting.m_PersistentCalls.m_Calls.Array.size
@@ -111939,7 +111939,7 @@ GameObject:
   - component: {fileID: 1914229723}
   - component: {fileID: 1914229722}
   m_Layer: 0
-  m_Name: FrameRate
+  m_Name: ______FrameRate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
