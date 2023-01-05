@@ -163,10 +163,10 @@ namespace CodeBase.Logic.Characters.Hero
         
         private void Rolling()
         {
-            float rollMultiplayer = 5f;
+            float rollMultiplayer = 10f;
             _rollSpeed -= _rollSpeed * rollMultiplayer * Time.deltaTime;
 
-            float rollSpeedMinimum = 50f;
+            float rollSpeedMinimum = 30f;
 
             if (_rollSpeed < rollSpeedMinimum) 
                 _states = States.Normal;

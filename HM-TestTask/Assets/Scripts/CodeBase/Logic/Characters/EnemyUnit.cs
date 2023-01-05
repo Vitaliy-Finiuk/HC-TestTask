@@ -4,20 +4,20 @@ namespace CodeBase.Logic.Characters
 {
     public class EnemyUnit : Unit
     {
-        public int hp;
-        public int maxHP = 100;
+        public int Health = 50;
+        public int MaxHP = 100;
 
         public override void Awake()
         {
-            hp = maxHP;
+            Health = MaxHP;
         }
         
         public override void TakeDamage(int amount)
         {
-            hp -= Mathf.Abs(amount);
-            hp = Mathf.Clamp(hp, 0, maxHP);
+            Health -= Mathf.Abs(amount);
+            Health = Mathf.Clamp(Health, 0, MaxHP);
             
-            if (hp <= 0)
+            if (Health <= 0)
             {
                 onDeath?.Invoke(this);
             }

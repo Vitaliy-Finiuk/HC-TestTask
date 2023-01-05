@@ -71,7 +71,6 @@ public class WaveSpawnerTest : MonoBehaviour
     private void SpawnWave()
     {
         if (canSpawn && nextSpawnTime < Time.time)
-
         {
 
             GameObject randomEnemy = currentWave.typeOfEnemies[Random.Range(0, currentWave.typeOfEnemies.Length)];
@@ -90,9 +89,5 @@ public class WaveSpawnerTest : MonoBehaviour
             }
 
         }
-
-        
-
     }
-
 }

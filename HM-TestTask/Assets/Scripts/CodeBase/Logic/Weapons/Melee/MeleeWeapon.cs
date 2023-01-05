@@ -110,7 +110,7 @@ namespace CodeBase.Logic.Weapons.Melee
                             if(damage == 0 && bushing)
                             {
                                 if(timeT1 > 0)
-                                    unit.TakeDamage(100);
+                                    unit.TakeDamage(damage);
                             }
                         
                         }
