@@ -15,7 +15,7 @@ namespace CodeBase.Logic.Characters.Enemy
         Wander,
     }
     
-    public class Enemy : Unit
+    public class Enemy : EnemyUnit
     {
         private EnemyStates actualState;
         

@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 using System.Collections;
 using CodeBase.Logic.Characters.Enemy;
+using Enemy = _.TopDownShooter.Scripts.Enemy;
 
 public class PrEnemySpawner : MonoBehaviour {
 
@@ -194,7 +196,7 @@ public class PrEnemySpawner : MonoBehaviour {
                     EnemySpawned.GetComponent<PrEnemyAI>().FindPlayers();
                     EnemySpawned.GetComponent<PrEnemyAI>().lookForPlayer = true;
                 }
-                */
+                #1#
 
                 EnemySpawned.GetComponent<Enemy>().SetWaypoints();
 
@@ -227,3 +229,4 @@ public class PrEnemySpawner : MonoBehaviour {
         Gizmos.DrawMesh(IconMesh, transform.position + new Vector3(0,0.75f,0), Quaternion.identity, Vector3.one );
     }
 }
+*/

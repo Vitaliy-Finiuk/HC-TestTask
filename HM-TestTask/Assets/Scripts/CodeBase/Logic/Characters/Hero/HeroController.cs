@@ -11,7 +11,7 @@ namespace CodeBase.Logic.Characters.Hero
 {
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(WeaponManager))]
-    public class HeroController : Unit
+    public class HeroController : HeroUnit
     {
         private enum States
         {

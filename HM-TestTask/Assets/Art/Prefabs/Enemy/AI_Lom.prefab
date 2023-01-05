@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1965159404516681378
@@ -255,8 +255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39b5bec8b900aa488f007f8efe4307f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 50
-  maxHP: 50
   onDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -264,6 +262,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   IsEnemy: 0
+  hp: 50
+  maxHP: 50
   points: []
   minRemainingDistance: 1.5
   patrolSpeed: 5
@@ -271,9 +271,15 @@ MonoBehaviour:
   tagOfTarget: Hero_Player
   timeToDisappear: 3
   timeToRunWhenHearShoot: 3
+  FindTargetAfterSpawn: 0
   ifCantSeeDistance: 1
   ifCanSeeDistance: 10
   standartSpeed: 30
+  randomWaypointAccuracy: 1
+  waypointRoute: {fileID: 0}
+  waypoints: []
+  waypointPingPong: 0
+  finalGoal: {x: 0, y: 0, z: 0}
   radius: 40
   angle: 123
   targetLayer:
@@ -286,9 +292,9 @@ MonoBehaviour:
   bodyBush: {fileID: 21300000, guid: bfb3057802bed584880424a0d0dad5a9, type: 3}
   tapki: {fileID: 0}
   complex: 1
-  CurrentWeapon: {fileID: 5063255803350954856, guid: 9147b2f0073626241805c28f3a04635d, type: 3}
+  CurrentWeapon: {fileID: 1965159404516681378}
   weaponSeenInIdle: 1
-  weapon: {fileID: 0}
+  weapon: {fileID: 5063255803350954856, guid: 9147b2f0073626241805c28f3a04635d, type: 3}
   deadBody:
   - {fileID: 302410565938585042, guid: 4078505b819ef9148b6dbb9b3c499689, type: 3}
   - {fileID: 1767649736170290120, guid: b6dcbcf7166c60240b0eb726769408e2, type: 3}
@@ -315,7 +321,7 @@ MonoBehaviour:
       m_Calls: []
   WM: {fileID: 0}
   HR: {fileID: 0}
-  fireRate: 600
+  _fireRate: 600
   semiMode: 0
   UseAmmoSystem: 0
   ammo: 0
@@ -349,7 +355,7 @@ MonoBehaviour:
   angle: 360
   rangeAttack: 3
   fireRate: 60
-  animator: {fileID: 0}
+  animator: {fileID: 6836959135107156420}
   OnAttack:
     m_PersistentCalls:
       m_Calls:

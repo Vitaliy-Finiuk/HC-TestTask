@@ -1,12 +1,13 @@
+using System;
+using CodeBase.Logic.Characters.Hero;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace CodeBase.Logic.Characters
 {
-    public class Unit : MonoBehaviour
+    public abstract class Unit : MonoBehaviour
     {
-        public int hp;
-        public int maxHP = 100;
 
         [HideInInspector]
         public UnityEvent<Unit> onDeath;
@@ -16,27 +17,14 @@ namespace CodeBase.Logic.Characters
 
         [HideInInspector]
         public bool IsEnemy;
-
-
-        public virtual void Awake()
-        {
-            hp = maxHP;
-        }
-
+        
+        public virtual void Awake() {}
+        
         public void Trigger()
         {
             onTrigger?.Invoke();
         }
 
-        public void TakeDamage(int amount)
-        {
-            hp -= Mathf.Abs(amount);
-            hp = Mathf.Clamp(hp, 0, maxHP);
-
-            if (hp <= 0)
-            {
-                onDeath?.Invoke(this);
-            }
-        }
+        public abstract void TakeDamage(int amount);
     }
 }

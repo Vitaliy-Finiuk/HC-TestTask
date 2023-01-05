@@ -373,9 +373,9 @@ MonoBehaviour:
   bodyBush: {fileID: 21300000, guid: 5ed8a8cd6f6821544bbb62e756fbd3fd, type: 3}
   tapki: {fileID: 5791867270796197244}
   complex: 1
-  CurrentWeapon: {fileID: 900166031920422479}
+  CurrentWeapon: {fileID: 6915284222877061307, guid: 4f89b8556fe22304dbf918793019e6b0, type: 3}
   weaponSeenInIdle: 0
-  weapon: {fileID: 4328294560212833966, guid: 2598bef93b4b8434aa2eb53daf428cc8, type: 3}
+  weapon: {fileID: 5063255803350954856, guid: 9147b2f0073626241805c28f3a04635d, type: 3}
   deadBody:
   - {fileID: 6602662507849249981, guid: 64c5af16c71f15848a5e6641e63d8897, type: 3}
   - {fileID: 1863591281931164051, guid: f822a9d3c52438a4399966ee3d3480e7, type: 3}
@@ -406,7 +406,7 @@ MonoBehaviour:
   HR: {fileID: 0}
   _fireRate: 600
   semiMode: 0
-  UseAmmoSystem: 1
+  UseAmmoSystem: 0
   ammo: 30
   maxAmmo: 30
   nowAmmo: 30

@@ -5,14 +5,13 @@ namespace CodeBase.Logic.Weapons.Shootable
 {
     public class Bullet : MonoBehaviour
     {
-        private const string Glass = "Glass";
         private const string Side = "Side";
         private const string AI = "AI";
         private const string HeroPlayer = "Hero_Player";
         
         [SerializeField] private GameObject _hitBlood;
         [SerializeField] private GameObject _hitEffect;
-        [SerializeField] private int _damage = 50;
+        [SerializeField] private int _damage = 1;
     
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -34,6 +33,8 @@ namespace CodeBase.Logic.Weapons.Shootable
             if (unit)
             {
                 unit.TakeDamage(_damage);
+                Debug.Log("sdfsdfsdf");
+                //unit.TakeDamage(1);
             }
             Destroy(gameObject);
         }

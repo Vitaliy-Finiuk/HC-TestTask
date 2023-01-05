@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitBlood: {fileID: 8631781572548557908, guid: c08a27c29b3858b4f88171770f9beb1b, type: 3}
   _hitEffect: {fileID: 8631781572548557908, guid: c08a27c29b3858b4f88171770f9beb1b, type: 3}
-  _damage: 50
+  _damage: 1
 --- !u!82 &-8208036077948606349
 AudioSource:
   m_ObjectHideFlags: 0
